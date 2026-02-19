@@ -1,4 +1,4 @@
-// app.js
+// script.js
 const screens = {
   start: document.getElementById("screen-start"),
   quiz: document.getElementById("screen-quiz"),
@@ -21,22 +21,13 @@ const resultBodyEl = document.getElementById("result-body");
 const leadForm = document.getElementById("lead-form");
 const whatsappInput = document.getElementById("whatsapp");
 
-// 3 “padrões” (variações leves no começo) + narrativa base igual
+// Variações leves
 const PATTERNS = {
-  radicalismo: {
-    label: "Seu padrão hoje é tentar compensar erro com restrição.",
-  },
-  ansiedade: {
-    label: "Seu padrão hoje é deixar a ansiedade decidir por você.",
-  },
-  anos: {
-    label: "Seu padrão hoje é recomeçar do zero há anos.",
-  },
+  radicalismo: { label: "Seu padrão hoje é tentar compensar erro com restrição." },
+  ansiedade: { label: "Seu padrão hoje é deixar a ansiedade decidir por você." },
+  anos: { label: "Seu padrão hoje é recomeçar do zero há anos." },
 };
 
-// Perguntas (5) + alternativas (4).
-// Cada alternativa soma 1 ponto para um padrão.
-// (narrativa final é a mesma, com pequena variação pela maior pontuação)
 const QUESTIONS = [
   {
     title: "Quando você tenta emagrecer, o que normalmente acontece?",
@@ -113,7 +104,6 @@ function renderQuestion() {
 
     btn.addEventListener("click", () => {
       answers[current] = idx;
-      // visual selection
       Array.from(optionsEl.children).forEach((el) => el.classList.remove("selected"));
       btn.classList.add("selected");
       btnNext.disabled = false;
@@ -137,13 +127,10 @@ function computePattern() {
     });
   });
 
-  // pick highest; tie-breaker: anos > ansiedade > radicalismo (mais “acolhedor” e comum)
+  // desempate mais “suave”
   const order = ["anos", "ansiedade", "radicalismo"];
   let best = order[0];
-
-  order.forEach((k) => {
-    if (totals[k] > totals[best]) best = k;
-  });
+  order.forEach((k) => { if (totals[k] > totals[best]) best = k; });
 
   return best;
 }
@@ -152,7 +139,6 @@ function renderResult() {
   const patternKey = computePattern();
   resultVariantEl.textContent = PATTERNS[patternKey].label;
 
-  // Texto base igual (com o tom firme equilibrado)
   resultBodyEl.innerHTML = `
     <p><strong>Você não falha por falta de força de vontade.</strong><br/>
     Você está presa em um padrão que te mantém no mesmo lugar.</p>
@@ -201,7 +187,6 @@ btnNext.addEventListener("click", () => {
     current += 1;
     renderQuestion();
   } else {
-    // finished
     renderResult();
     show("result");
   }
@@ -216,24 +201,19 @@ leadForm.addEventListener("submit", (e) => {
   const raw = whatsappInput.value.trim();
   const digits = onlyDigits(raw);
 
-  // validação simples (Brasil geralmente 10 ou 11 dígitos com DDD)
   if (digits.length < 10 || digits.length > 13) {
     whatsappInput.focus();
     alert("Digite um WhatsApp válido com DDD. Ex: (11) 91234-5678");
     return;
   }
 
-  // Aqui você pode integrar com API/planilha depois.
-  // Por enquanto: abre WhatsApp com mensagem pronta (opcional) + feedback.
   const msg = encodeURIComponent(
     "Oi, Jeh! Fiz o diagnóstico e quero receber o eBook + entrar na lista de espera do Método Leve & Consciente."
   );
 
-  // Troque pelo seu número com código do país (55) e DDD. Ex: 5511999999999
+  // TROQUE PELO SEU NÚMERO (ex: 5511999999999)
   const SEU_NUMERO = "55SEUDDDSEUNUMERO";
 
   alert("Perfeito! Agora vou te enviar o eBook e te colocar na lista de espera ✅");
-
-  // Se você quiser abrir conversa no WhatsApp, mantenha esta linha:
   window.open(`https://wa.me/${SEU_NUMERO}?text=${msg}`, "_blank");
 });
