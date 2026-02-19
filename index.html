@@ -1,0 +1,113 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Diagnóstico | Leve & Consciente</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="wrap" aria-live="polite">
+    <!-- HERO / START -->
+    <section class="card" id="screen-start">
+      <div class="hero">
+        <!-- Troque o src pela sua foto (arquivo local ou URL) -->
+        <img class="hero__photo" src="sua-foto.jpg" alt="Foto da nutricionista" />
+      </div>
+
+      <h1 class="h1">Por que você ainda não conseguiu emagrecer?</h1>
+      <p class="sub">
+        Descubra em 2 minutos o padrão que está te mantendo no ciclo começar-desistir.
+      </p>
+
+      <div class="copy">
+        <p>Se você tem mais de 30 anos e sente que:</p>
+        <ul>
+          <li>Começa animada e perde o ritmo</li>
+          <li>Já tentou várias dietas</li>
+          <li>Vive no efeito sanfona</li>
+          <li>Se culpa toda vez que sai do plano</li>
+        </ul>
+        <p class="strong">
+          Talvez o problema não seja falta de força de vontade.
+          Talvez você esteja repetindo um padrão.
+        </p>
+        <p>Esse diagnóstico vai mostrar qual é o seu.</p>
+      </div>
+
+      <button class="btn" id="btn-start" type="button">Quero descobrir meu padrão</button>
+
+      <p class="meta">✔ Gratuito &nbsp; • &nbsp; ✔ Menos de 2 minutos &nbsp; • &nbsp; ✔ Resultado imediato</p>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="card hidden" id="screen-quiz">
+      <div class="topline">
+        <span class="kicker" id="progress-text">Pergunta 1 de 5</span>
+        <div class="progress" aria-label="Progresso">
+          <div class="progress__bar" id="progress-bar"></div>
+        </div>
+      </div>
+
+      <h2 class="h2" id="question-title">...</h2>
+      <div class="options" id="options"></div>
+
+      <div class="nav">
+        <button class="btn btn--ghost" id="btn-back" type="button">Voltar</button>
+        <button class="btn" id="btn-next" type="button" disabled>Continuar</button>
+      </div>
+    </section>
+
+    <!-- RESULT -->
+    <section class="card hidden" id="screen-result">
+      <h2 class="h2">Seu diagnóstico</h2>
+
+      <p class="result-lead" id="result-variant">
+        <!-- variação entra via JS -->
+      </p>
+
+      <div class="result-body" id="result-body">
+        <!-- texto base entra via JS -->
+      </div>
+
+      <hr class="divider" />
+
+      <h3 class="h3">Receber o eBook + entrar na lista de espera</h3>
+      <p class="sub">
+        Deixe seu WhatsApp para receber o material e ser avisada quando a próxima turma abrir.
+      </p>
+
+      <form id="lead-form" class="form">
+        <label class="label" for="whatsapp">WhatsApp</label>
+        <input
+          id="whatsapp"
+          name="whatsapp"
+          class="input"
+          type="tel"
+          inputmode="tel"
+          placeholder="(DDD) 9XXXX-XXXX"
+          autocomplete="tel"
+          required
+        />
+        <button class="btn" type="submit">Quero sair do ciclo</button>
+        <p class="meta">
+          Ao enviar, você concorda em receber mensagens sobre o eBook e a lista de espera.
+        </p>
+      </form>
+
+      <div class="follow">
+        <p class="sub">Já me segue no Instagram?</p>
+        <!-- Troque pelo seu @ -->
+        <a class="link" href="https://instagram.com/jehferreiranutri" target="_blank" rel="noopener">
+          @jehferreiranutri
+        </a>
+      </div>
+
+      <button class="btn btn--ghost" id="btn-restart" type="button">Refazer diagnóstico</button>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
