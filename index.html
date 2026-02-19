@@ -12,8 +12,7 @@
     <!-- HERO / START -->
     <section class="card" id="screen-start">
       <div class="hero">
-        <!-- Troque o src pela sua foto (arquivo local ou URL) -->
-        <img class="hero__photo" src="nutri.jpg.jpg" alt="Foto da nutricionista" />
+        <img class="hero__photo" src="nutri.jpg" alt="Foto da nutricionista" />
       </div>
 
       <h1 class="h1">Por que você ainda não conseguiu emagrecer?</h1>
@@ -63,13 +62,9 @@
     <section class="card hidden" id="screen-result">
       <h2 class="h2">Seu diagnóstico</h2>
 
-      <p class="result-lead" id="result-variant">
-        <!-- variação entra via JS -->
-      </p>
+      <p class="result-lead" id="result-variant"></p>
 
-      <div class="result-body" id="result-body">
-        <!-- texto base entra via JS -->
-      </div>
+      <div class="result-body" id="result-body"></div>
 
       <hr class="divider" />
 
@@ -98,7 +93,6 @@
 
       <div class="follow">
         <p class="sub">Já me segue no Instagram?</p>
-        <!-- Troque pelo seu @ -->
         <a class="link" href="https://instagram.com/jehferreiranutri" target="_blank" rel="noopener">
           @jehferreiranutri
         </a>
@@ -108,6 +102,7 @@
     </section>
   </main>
 
-  <script src="app.js"></script>
+  <!-- AJUSTE: agora aponta para script.js e com defer -->
+  <script src="script.js" defer></script>
 </body>
 </html>
