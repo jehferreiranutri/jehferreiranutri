@@ -1,4 +1,6 @@
 // script.js
+const WHATSAPP_GROUP_LINK = "https://chat.whatsapp.com/BR133Vsgc1DF69l15AnGUN";
+
 const screens = {
   start: document.getElementById("screen-start"),
   quiz: document.getElementById("screen-quiz"),
@@ -21,7 +23,6 @@ const resultBodyEl = document.getElementById("result-body");
 const leadForm = document.getElementById("lead-form");
 const whatsappInput = document.getElementById("whatsapp");
 
-// Variações leves
 const PATTERNS = {
   radicalismo: { label: "Seu padrão hoje é tentar compensar erro com restrição." },
   ansiedade: { label: "Seu padrão hoje é deixar a ansiedade decidir por você." },
@@ -122,12 +123,10 @@ function computePattern() {
 
   answers.forEach((aIdx, qIdx) => {
     const opt = QUESTIONS[qIdx].options[aIdx];
-    Object.entries(opt.score).forEach(([k, v]) => {
-      totals[k] += v;
-    });
+    Object.entries(opt.score).forEach(([k, v]) => (totals[k] += v));
   });
 
-  // desempate mais “suave”
+  // desempate mais “neutro”: anos > ansiedade > radicalismo
   const order = ["anos", "ansiedade", "radicalismo"];
   let best = order[0];
   order.forEach((k) => { if (totals[k] > totals[best]) best = k; });
@@ -196,24 +195,28 @@ btnRestart.addEventListener("click", () => {
   show("start");
 });
 
+// ✅ Agora o submit leva pro grupo (e você pode guardar o número localmente)
 leadForm.addEventListener("submit", (e) => {
   e.preventDefault();
+
   const raw = whatsappInput.value.trim();
   const digits = onlyDigits(raw);
 
+  // validação simples (DDD + número)
   if (digits.length < 10 || digits.length > 13) {
     whatsappInput.focus();
     alert("Digite um WhatsApp válido com DDD. Ex: (11) 91234-5678");
     return;
   }
 
-  const msg = encodeURIComponent(
-    "Oi, Jeh! Fiz o diagnóstico e quero receber o eBook + entrar na lista de espera do Método Leve & Consciente."
-  );
+  // opcional: salvar localmente (não envia pra nenhum lugar)
+  try {
+    localStorage.setItem("lead_whatsapp", digits);
+    localStorage.setItem("lead_timestamp", String(Date.now()));
+  } catch {}
 
-  // TROQUE PELO SEU NÚMERO (ex: 5511999999999)
-  const SEU_NUMERO = "55SEUDDDSEUNUMERO";
+  alert("Perfeito! Agora toque em OK para entrar no grupo da lista de espera ✅");
 
-  alert("Perfeito! Agora vou te enviar o eBook e te colocar na lista de espera ✅");
-  window.open(`https://wa.me/${SEU_NUMERO}?text=${msg}`, "_blank");
+  // redireciona para o link do grupo
+  window.location.href = WHATSAPP_GROUP_LINK;
 });
